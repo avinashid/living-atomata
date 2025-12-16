@@ -4,8 +4,7 @@ import { MouseEffect } from "./components/mouse-grid";
 const home = () => {
   return (
     <div className="">
-      <CanvasLayout />
-      <MouseEffect />
+      <CanvasLayout title="Randomizer" />
     </div>
   );
 };

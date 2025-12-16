@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { FormNumberField, FormWrapper } from "~/components/custom/form-wrapper";
@@ -12,6 +12,7 @@ import { CellGenerator } from "~/utils/cell-generator";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const RandomModel = () => {
+  const [open, setOpen] = useState(false);
   const schema = z.object({
     count: z.number().min(1, { message: "Input must be greater than 0" }),
     delay: z.number().min(0).optional(),
@@ -83,6 +84,7 @@ const RandomModel = () => {
         size: grid.cellSize,
       });
       addManyRandom(points);
+      setOpen(false);
       return;
     }
 
@@ -95,10 +97,13 @@ const RandomModel = () => {
     reset();
     remainingCountRef.current = e.count;
     start();
+    setOpen(false);
   };
 
   return (
     <SimpleModel
+      open={open}
+      onOpenChange={setOpen}
       className="p-0 min-h-80"
       trigger={
         <div className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded font-semibold flex items-center gap-1 hover:bg-muted/80 cursor-pointer">
